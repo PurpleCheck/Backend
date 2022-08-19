@@ -26,8 +26,8 @@ public class InspectInfo {
 
     private LocalDateTime inspectDate;
 
-    public boolean updateCompStatus(Boolean check){
-        this.completeYN = check;
+    public boolean updateCompStatus(boolean completeYN){
+        this.completeYN = completeYN;
         this.inspectDate = LocalDateTime.now();
         return true;
     }
