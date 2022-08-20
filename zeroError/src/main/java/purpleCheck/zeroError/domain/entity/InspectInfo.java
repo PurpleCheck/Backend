@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @DynamicUpdate // 개별 업데이트
-@Table(name="Inspect_info")
+@Table(name="Inspect_Info")
 public class InspectInfo {
     @Id
     @Column(name = "inspect_id")
@@ -22,8 +22,10 @@ public class InspectInfo {
     @JoinColumn(name="tracking_id")
     private TrackingInfo tracking;
 
+    @Column(name = "complete_yn")
     private boolean completeYN;
 
+    @Column(name="inspect_date")
     private LocalDateTime inspectDate;
 
     public boolean updateCompStatus(boolean completeYN){

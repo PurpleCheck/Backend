@@ -19,6 +19,7 @@ public class Order {
     @JoinColumn(name="member_id")
     private Member member;
 
+    @Column(name = "order_date")
     private LocalDateTime orderDate;
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL) // 양방향

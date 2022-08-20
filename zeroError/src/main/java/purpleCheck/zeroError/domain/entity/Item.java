@@ -16,7 +16,9 @@ public class Item {
     private long id;
     @Column(name = "item_name")
     private String name;
+    @Column(name="brand_name")
     private String brandName;
     private int price;
+    @Column(name="stock_quantity")
     private int stockQuantity; // 재고
 }
