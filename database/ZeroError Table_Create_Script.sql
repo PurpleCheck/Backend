@@ -6,17 +6,6 @@ CREATE TABLE MEMBERS (
   PRIMARY KEY (member_id)
 );
 
--- ZeroError.orders
-CREATE TABLE ORDERS(
-  order_id bigint NOT NULL,
-  member_id bigint DEFAULT NULL,
-  total_count int NOT NULL,
-  total_price bigint DEFAULT NULL,
-  order_date datetime DEFAULT NULL,
-  PRIMARY KEY (order_id),
-  FOREIGN KEY (member_id) REFERENCES MEMBERS (member_id)
-);
-
 -- ZeroError.item
 CREATE TABLE ITEM (
   item_id bigint NOT NULL,
@@ -27,11 +16,20 @@ CREATE TABLE ITEM (
   PRIMARY KEY (item_id)
 );
 
+-- ZeroError.orders
+CREATE TABLE ORDERS(
+  order_id bigint NOT NULL,
+  member_id bigint NOT NULL,
+  order_date datetime DEFAULT NOW(),
+  PRIMARY KEY (order_id),
+  FOREIGN KEY (member_id) REFERENCES MEMBERS (member_id)
+);
 -- ZeroError.order_item
 CREATE TABLE ORDER_ITEM (
-  order_item_id int NOT NULL,
-  order_id bigint DEFAULT NULL,
-  item_id bigint DEFAULT NULL,
+  order_item_id bigint NOT NULL,
+  order_id bigint NOT NULL,
+  item_id bigint NOT NULL,
+  count int DEFAULT NULL,
   PRIMARY KEY (order_item_id),
   FOREIGN KEY (item_id) REFERENCES ITEM (item_id),
   FOREIGN KEY (order_id) REFERENCES ORDERS (order_id)
@@ -40,8 +38,8 @@ CREATE TABLE ORDER_ITEM (
 -- ZeroError.tracking_info
 CREATE TABLE TRACKING_INFO (
   tracking_id varchar(100) NOT NULL,
-  order_id bigint DEFAULT NULL,
-  order_date datetime DEFAULT NULL,
+  order_id bigint NOT NULL,
+  order_date datetime DEFAULT NOW(),
   PRIMARY KEY (tracking_id),
   FOREIGN KEY (order_id) REFERENCES ORDERS (order_id)
 );
@@ -49,11 +47,10 @@ CREATE TABLE TRACKING_INFO (
 -- ZeroError.inspect_info
 CREATE TABLE INSPECT_INFO (
   inspect_id bigint NOT NULL,
-  order_id bigint DEFAULT NULL,
-  tracking_id varchar(100) DEFAULT NULL,
-  complete_yn tinyint DEFAULT NULL,
-  inspect_date datetime DEFAULT NULL,
-  check_count int DEFAULT NULL,
+  order_id bigint NOT NULL,
+  tracking_id varchar(100) NOT NULL,
+  complete_yn tinyint DEFAULT 0,
+  inspect_date datetime DEFAULT NOW(),
   PRIMARY KEY (inspect_id),
   FOREIGN KEY (tracking_id) REFERENCES TRACKING_INFO (tracking_id),
   FOREIGN KEY (order_id) REFERENCES ORDERS (order_id)
