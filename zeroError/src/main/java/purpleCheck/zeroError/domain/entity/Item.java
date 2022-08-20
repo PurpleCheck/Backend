@@ -18,5 +18,5 @@ public class Item {
     private String name;
     private String brandName;
     private int price;
-    private int count; // 재고
+    private int stockQuantity; // 재고
 }
