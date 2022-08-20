@@ -10,14 +10,16 @@ public class OrderListResForm {
     private long inspectId;
     private long orderId;
     private String trackingId;
-    private List<OrderItemDto> orderList;
+    private List<OrderItemForm> orderItemFormList;
     private int totalCount;
+    private int totalCheckCount;
 
-    public OrderListResForm(long inspectId, long orderId, String trackingId, List<OrderItemDto> orderList, int totalCount) {
+    public OrderListResForm(long inspectId, long orderId, String trackingId, List<OrderItemForm> orderItemFormList, int totalCount) {
         this.inspectId = inspectId;
         this.orderId = orderId;
         this.trackingId = trackingId;
-        this.orderList = orderList;
+        this.orderItemFormList = orderItemFormList;
         this.totalCount=totalCount;
+        this.totalCheckCount=0;
     }
 }

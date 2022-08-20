@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import purpleCheck.zeroError.domain.entity.InspectInfo;
 import purpleCheck.zeroError.exception.NoSuchInspectIdFoundException;
 import purpleCheck.zeroError.exception.UpdateFailException;
+import purpleCheck.zeroError.newForm.OrderItemForm;
 import purpleCheck.zeroError.newForm.OrderListResForm;
 import purpleCheck.zeroError.newForm.OrderItemDto;
 import purpleCheck.zeroError.newForm.UpdateStatusResForm;
@@ -13,6 +14,7 @@ import purpleCheck.zeroError.repository.InspectInfoRepository;
 import purpleCheck.zeroError.repository.OrderItemRepository;
 import purpleCheck.zeroError.repository.OrderRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,8 +36,12 @@ public class InspectionInfoService {
         long orderId = inspectInfo.getOrder().getId();
         String trackingId = inspectInfo.getTracking().getId();
         List<OrderItemDto> orderItems = orderItemRepository.findById(orderId);
+        List<OrderItemForm> orderItemForms = new ArrayList<>();
+        for (OrderItemDto oi: orderItems){
+            orderItemForms.add(new OrderItemForm(oi));
+        }
         int totalCount = orderRepository.findById(orderId).getTotalCount();
-        return new OrderListResForm(id, orderId, trackingId, orderItems, totalCount);
+        return new OrderListResForm(id, orderId, trackingId, orderItemForms, totalCount);
     }
 
     @Transactional
