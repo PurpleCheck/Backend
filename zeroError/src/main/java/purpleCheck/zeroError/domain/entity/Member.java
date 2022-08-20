@@ -16,6 +16,6 @@ public class Member {
     private String name;
     private String phone;
 
-    @OneToMany(mappedBy = "member") // 양방향
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL) // 양방향
     private List<Order> orders = new ArrayList<>();
 }
