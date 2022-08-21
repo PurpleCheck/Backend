@@ -1,5 +1,5 @@
 -- ZeroError.members
-CREATE TABLE MEMBERS (
+CREATE TABLE members (
   member_id bigint NOT NULL,
   member_name varchar(100) DEFAULT NULL,
   phone varchar(30) DEFAULT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE MEMBERS (
 );
 
 -- ZeroError.item
-CREATE TABLE ITEM (
+CREATE TABLE item (
   item_id bigint NOT NULL,
   item_name varchar(100) DEFAULT NULL,
   brand_name varchar(100) DEFAULT NULL,
@@ -17,43 +17,44 @@ CREATE TABLE ITEM (
 );
 
 -- ZeroError.orders
-CREATE TABLE ORDERS(
+CREATE TABLE orders(
   order_id bigint NOT NULL,
   member_id bigint NOT NULL,
   order_date datetime DEFAULT NOW(),
   PRIMARY KEY (order_id),
-  FOREIGN KEY (member_id) REFERENCES MEMBERS (member_id)
+  FOREIGN KEY (member_id) REFERENCES members (member_id)
 );
+
 -- ZeroError.order_item
-CREATE TABLE ORDER_ITEM (
+CREATE TABLE order_item (
   order_item_id bigint NOT NULL,
   order_id bigint NOT NULL,
   item_id bigint NOT NULL,
   count int DEFAULT NULL,
   PRIMARY KEY (order_item_id),
-  FOREIGN KEY (item_id) REFERENCES ITEM (item_id),
-  FOREIGN KEY (order_id) REFERENCES ORDERS (order_id)
+  FOREIGN KEY (item_id) REFERENCES item (item_id),
+  FOREIGN KEY (order_id) REFERENCES orders (order_id)
 );
 
 -- ZeroError.tracking_info
-CREATE TABLE TRACKING_INFO (
+CREATE TABLE tracking_info (
   tracking_id varchar(100) NOT NULL,
   order_id bigint NOT NULL,
   order_date datetime DEFAULT NOW(),
   PRIMARY KEY (tracking_id),
-  FOREIGN KEY (order_id) REFERENCES ORDERS (order_id)
+  FOREIGN KEY (order_id) REFERENCES orders (order_id)
 );
 
 -- ZeroError.inspect_info
-CREATE TABLE INSPECT_INFO (
+CREATE TABLE inspect_info (
   inspect_id bigint NOT NULL,
   order_id bigint NOT NULL,
   tracking_id varchar(100) NOT NULL,
   complete_yn tinyint DEFAULT 0,
   inspect_date datetime DEFAULT NOW(),
   PRIMARY KEY (inspect_id),
-  FOREIGN KEY (tracking_id) REFERENCES TRACKING_INFO (tracking_id),
-  FOREIGN KEY (order_id) REFERENCES ORDERS (order_id)
+  FOREIGN KEY (tracking_id) REFERENCES tracking_info (tracking_id),
+  FOREIGN KEY (order_id) REFERENCES orders (order_id)
 );
 
 
