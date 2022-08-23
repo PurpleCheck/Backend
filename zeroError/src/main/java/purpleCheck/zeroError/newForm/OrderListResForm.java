@@ -13,13 +13,15 @@ public class OrderListResForm {
     private List<OrderItemForm> orderItemFormList;
     private int totalCount;
     private int totalCheckCount;
+    private boolean completeYN;
 
-    public OrderListResForm(long inspectId, long orderId, String trackingId, List<OrderItemForm> orderItemFormList, int totalCount) {
+    public OrderListResForm(long inspectId, long orderId, String trackingId, List<OrderItemForm> orderItemFormList, int totalCount, boolean completeYN) {
         this.inspectId = inspectId;
         this.orderId = orderId;
         this.trackingId = trackingId;
         this.orderItemFormList = orderItemFormList;
         this.totalCount=totalCount;
+        this.completeYN=completeYN;
         this.totalCheckCount=0;
     }
 }

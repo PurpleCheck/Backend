@@ -41,7 +41,8 @@ public class InspectionInfoService {
             orderItemForms.add(new OrderItemForm(oi));
         }
         int totalCount = orderRepository.findById(orderId).getTotalCount();
-        return new OrderListResForm(id, orderId, trackingId, orderItemForms, totalCount);
+        boolean completeYN=inspectInfo.isCompleteYN();
+        return new OrderListResForm(id, orderId, trackingId, orderItemForms, totalCount, completeYN);
     }
 
     @Transactional
